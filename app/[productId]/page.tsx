@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProduct, getProducts } from "@/lib/sample-data";
 import { Reviews } from "@/components/reviews";
-import { get } from "http";
 
 export default async function ProductPage({
   params,
@@ -49,11 +48,11 @@ export async function generateMetadata({
 }: {
     params: Promise<{ productId: string }>;
 }): Promise<Metadata> {
-    const { productID } = await params;
+    const { productId } = await params;
 
     let product;
     try {
-        product = getProduct(productID);
+        product = getProduct(productId);
     } catch (error) {
         return {
             title: "Product Not Found",
