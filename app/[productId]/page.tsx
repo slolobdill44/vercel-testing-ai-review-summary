@@ -4,6 +4,7 @@ import { getProduct, getProducts } from "@/lib/sample-data";
 import { Reviews } from "@/components/reviews";
 import { AIReviewSummary } from "@/components/ai-review-summary";
 import { StreamingSummary } from "@/components/streaming-summary";
+import { ReviewInsights } from "@/components/review-insights";
 import Link from "next/dist/client/link";
 
 export default async function ProductPage({
@@ -35,6 +36,8 @@ export default async function ProductPage({
                     <StreamingSummary product={product} />
                     <div className="mt-8" />                    
                     <Reviews product={product} />
+                    <div className="mt-8" />
+                    <ReviewInsights product={product} />
                 </div>
             </div>
             <Link
