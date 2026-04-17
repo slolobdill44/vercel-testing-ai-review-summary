@@ -43,5 +43,5 @@ function timeAgo(date: Date, suffix = true): string {
         return "Just now";
     }
 
-    return `${ms(diff, { long: true})}${suffix ? " ago": ""};`
+    return `${ms(diff, { long: true})}${suffix ? " ago": ""}`;
 }
