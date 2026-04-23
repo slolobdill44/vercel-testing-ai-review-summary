@@ -1,7 +1,9 @@
 import { generateText, generateObject, streamText } from "ai";
 import { Product, ReviewInsightsSchema, ReviewInsights } from "./types";
+import { cacheLife, cacheTag } from "next/cache";
 
 export async function streamReviewSummary(product: Product) {
+  
   const averageRating =
     product.reviews.reduce((acc, review) => acc + review.stars, 0) /
     product.reviews.length;
@@ -47,7 +49,11 @@ ${product.reviews
 }
 
 export async function summarizeReviews(product: Product): Promise<string> {
-    const averageRating = product.reviews.reduce((acc, review) => acc + review.stars, 0) / product.reviews.length;
+  "use cache";
+  cacheLife("hours");
+  cacheTag(`product-summary-${product.slug}`);
+  
+  const averageRating = product.reviews.reduce((acc, review) => acc + review.stars, 0) / product.reviews.length;
     
   const prompt = `Write a summary of the reviews for the ${
     product.name
@@ -101,6 +107,10 @@ ${product.reviews
 export async function getReviewInsights(
   product: Product
 ): Promise<ReviewInsights> {
+  "use cache";
+  cacheLife("hours");
+  cacheTag(`product-insights-${product.slug}`);
+
   const averageRating = product.reviews.reduce((acc, review) => acc + review.stars, 0) / product.reviews.length;
 
   const prompt = `Analyze the following customer reviews for the ${product.name} product (average rating: ${averageRating} out of 5 stars)

@@ -3,10 +3,16 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Review as ReviewType } from "@/lib/types";
 import ms from "ms";
+import { useEffect, useState } from "react";
 import { FiveStarRating } from "./five-star-rating";
 
 export function Review({ review }: { review: ReviewType }) {
     const date = new Date(review.date);
+    const [timeText, setTimeText] = useState<string>("");
+
+    useEffect(() => {
+        setTimeText(timeAgo(date));
+    }, [date]);
 
     return (
         <div className="flex gap-4">
@@ -21,7 +27,7 @@ export function Review({ review }: { review: ReviewType }) {
                         <div className="flex items-center gap-2 mt-1">
                             <FiveStarRating rating={review.stars} />
                             <time className="tx-sx text-muted-foreground" suppressHydrationWarning>
-                                {timeAgo(date)}
+                                {timeText}
                             </time>
                         </div>
                     </div>
@@ -36,8 +42,8 @@ function getInitials(name: string): string {
 }
 
 function timeAgo(date: Date, suffix = true): string {
-    const now = Date.now();
-    const diff = now - date.getTime();
+    const now = new Date();
+    const diff = now.getTime() - date.getTime();
 
     if (diff < 1000) {
         return "Just now";
