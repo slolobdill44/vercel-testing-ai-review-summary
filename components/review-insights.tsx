@@ -3,8 +3,16 @@ import { Product } from "@/lib/types";
 import { getReviewInsights } from "@/lib/ai-summary";
  
 export async function ReviewInsights({ product }: { product: Product }) {
-  const insights = await getReviewInsights(product);
- 
+  let insights;
+
+  try {
+    insights = await getReviewInsights(product);
+  } catch (error) {
+    console.error("Failed to get review insights");
+    return null;
+  }
+  
+  
   return (
     <Card className="w-full max-w-prose">
       <CardHeader>

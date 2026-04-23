@@ -39,7 +39,7 @@ ${product.reviews
     .join("\n\n")}`;
  
   const result = streamText({
-    model: "anthropic/claude-sonnet-4-5",
+    model: "anthropic/claude-haiku-4.5",
     prompt,
     maxOutputTokens: 1000,
     temperature: 0.75,
@@ -87,7 +87,7 @@ ${product.reviews
 
     try {
         const { text } = await generateText({
-            model: "anthropic/claude-sonnet-4.5",
+            model: "anthropic/claude-haiku-4.5",
             prompt,
             maxOutputTokens: 1000,
             temperature: 0.75,
@@ -127,7 +127,7 @@ export async function getReviewInsights(
 
   try {
     const { object } = await generateObject({
-      model: "anthropic/claude-sonnet-4.5",
+      model: "anthropic/claude-haiku-4.5",
       schema: ReviewInsightsSchema,
       prompt,
     })
